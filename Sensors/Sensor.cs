@@ -9,13 +9,11 @@ namespace InvestigationsProject.Classes
     public abstract class Sensor
     {
         public string Name { get; private set; }
-        public bool IsActive { get; private set; }
 
 
         public Sensor(string name)
         {
             Name = name;
-            IsActive = true;
         }
 
 
