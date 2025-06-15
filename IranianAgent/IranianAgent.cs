@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InvestigationsProject.Classes
 {
     public class IranianAgent
     {
-
-
-        string[] Weaknesses = new string[] { "movement", "thermal", "mobile" };
-
+        // for sql later
         public int Id { get; set; }
         public string Name { get; set; }
-        public string rank;
-        public string[] SecretWeaknesses = new string[2];
+        public string Rank { get; set; }
+        //
 
-        public IranianAgent(string[] secretWeaknesses)
+
+        private List<string> secretWeaknesses;
+
+        private List<Sensor> attachedSensors;
+
+        public IranianAgent(List<string> weaknesses)
         {
-            Random rand = new Random();
-            string[] ranks = new string[] { "junior", "Class commander", "Company commander", "senior" };
-            rank = ranks[0];
-
-            SecretWeaknesses = secretWeaknesses;
+            
+            secretWeaknesses = weaknesses;
+            attachedSensors = new List<Sensor>();
         }
 
-        public static void Active()
+       public void AttachedSensor(Sensor sensor)
         {
-
+            attachedSensors.Add(sensor);
         }
+
+
     }
 }
