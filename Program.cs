@@ -1,4 +1,4 @@
-﻿
+﻿using InvestigationsProject.Game;
 
 namespace InvestigationsProject
 {
@@ -6,7 +6,7 @@ namespace InvestigationsProject
     {
         static void Main(string[] args)
         {
-
+            GameControl.Game();
         }
     }
 }

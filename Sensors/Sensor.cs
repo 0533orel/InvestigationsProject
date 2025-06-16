@@ -17,8 +17,9 @@ namespace InvestigationsProject.Classes
         }
 
 
-        public abstract bool Activate();
+        public abstract bool Activate(IranianAgent agent);
         
+
     }
 
 

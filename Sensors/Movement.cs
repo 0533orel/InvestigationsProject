@@ -12,10 +12,15 @@ namespace InvestigationsProject.Sensors
         public Movement() : base("movement") { }
 
 
-        public override bool Activate()
+        public override bool Activate(IranianAgent agent)
         {
-            Console.WriteLine($"The sensor {Name} is activated.");
-            return true;
+            int timesExists = agent.TimesWhenWeaknessExists(Name);
+            int timesAttached = agent.TimesWhenWeaknessAttached(Name);
+
+            if (timesExists != 0 && timesAttached < timesExists)
+                return true;
+            else
+                return false;
         }
     }
 }

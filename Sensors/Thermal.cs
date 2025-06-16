@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InvestigationsProject.Sensors
 {
@@ -12,10 +13,15 @@ namespace InvestigationsProject.Sensors
         public Thermal() : base("thermal") { }
 
 
-        public override bool Activate()
+        public override bool Activate(IranianAgent agent)
         {
-            Console.WriteLine($"The sensor {Name} is activated.");
-            return true;
+            int timesExists = agent.TimesWhenWeaknessExists(Name);
+            int timesAttached = agent.TimesWhenWeaknessAttached(Name);
+
+            if (timesExists != 0 && timesAttached < timesExists)
+                return true;
+            else
+                return false;
         }
     }
 }
