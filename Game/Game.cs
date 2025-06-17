@@ -14,7 +14,7 @@ namespace InvestigationsProject.Game
 
             static string[] ranks = { "Junior", "Class commander", "Company commander", "Senior" };
 
-            static List<string> sensors = new List<string> { "mobile", "movement", "thermal" };
+            static List<string> sensors = new List<string> { "mobile", "movement", "thermal", "pulse" };
 
             static List<string> agentWeaknesses = new List<string>
                     {
@@ -37,11 +37,13 @@ namespace InvestigationsProject.Game
                 bool canAttach = sensor.Activate(iranianAgent);
 
                 if (canAttach)
-                    iranianAgent.AttachedSensor(sensor);
+                    iranianAgent.AttachSensor(sensor);
+                else if (iranianAgent.GetLenAttachedSensors() > 0)
+                    iranianAgent.CheckQuantityLife();
 
-                Console.WriteLine($"\nAnswered: {iranianAgent.LenAttachedSensors()}/{iranianAgent.LenSecretWeaknesses()}\n");
+                Console.WriteLine($"\nAnswered: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()}\n");
 
-                if (iranianAgent.LenAttachedSensors() == iranianAgent.LenSecretWeaknesses())
+                if (iranianAgent.GetLenAttachedSensors() == iranianAgent.GetLenSecretWeaknesses())
                 {
                     Console.WriteLine("\nDone\n");
                     break;

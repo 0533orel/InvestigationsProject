@@ -10,18 +10,33 @@ namespace InvestigationsProject.Sensors
 {
     public class Thermal : Sensor
     {
-        public Thermal() : base("thermal") { }
+        public Thermal() : base("thermal")
+        {
+            quantityLife = 100;
+        }
 
 
         public override bool Activate(IranianAgent agent)
         {
-            int timesExists = agent.TimesWhenWeaknessExists(Name);
-            int timesAttached = agent.TimesWhenWeaknessAttached(Name);
+            int timesExists = agent.GetTimesWeaknessExists(Name);
+            int timesAttached = agent.GetTimesWeaknessAttached(Name);
 
             if (timesExists != 0 && timesAttached < timesExists)
                 return true;
             else
                 return false;
+        }
+
+
+        public override int GetQuantityLife()
+        {
+            return quantityLife;
+        }
+
+
+        public override void DownLifeQuantity()
+        {
+            quantityLife--;
         }
     }
 }

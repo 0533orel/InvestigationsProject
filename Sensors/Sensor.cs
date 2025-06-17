@@ -9,6 +9,7 @@ namespace InvestigationsProject.Classes
     public abstract class Sensor
     {
         public string Name { get; private set; }
+        protected int quantityLife;
 
 
         public Sensor(string name)
@@ -18,8 +19,12 @@ namespace InvestigationsProject.Classes
 
 
         public abstract bool Activate(IranianAgent agent);
-        
 
+
+        public abstract int GetQuantityLife();
+
+
+        public abstract void DownLifeQuantity();
     }
 
 
