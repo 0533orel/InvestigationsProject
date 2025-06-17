@@ -16,7 +16,7 @@ namespace InvestigationsProject.Game
             while (true)
             {
                 Console.WriteLine("\nPlease select one of the sensors from the list that you want to connect to the Iranian agent.\n" +
-                                 $"The sensors are: {string.Join(", ", sensors)}\n");
+                                 $"The sensors are: {string.Join(" / ", sensors)}\n");
 
                 userSelection = Console.ReadLine().Trim().ToLower();
 
@@ -35,10 +35,11 @@ namespace InvestigationsProject.Game
         {
             new Movement(),
             new Mobile(),
-            new Thermal()
+            new Thermal(),
+            new Pulse()
         };
 
-            return sensors.FirstOrDefault(s => s.Name.Contains(userSelection));
+            return sensors.FirstOrDefault(sensor => sensor.Name == userSelection);
         }
     }
 

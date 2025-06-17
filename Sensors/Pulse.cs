@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace InvestigationsProject.Sensors
 {
-    public class Movement : Sensor
+    internal class Pulse : Sensor
     {
-        public Movement() : base("movement")
+        public Pulse() : base("pulse")
         {
-            quantityLife = 100;
+            quantityLife = 3;
         }
 
 

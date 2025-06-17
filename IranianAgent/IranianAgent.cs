@@ -25,23 +25,40 @@ namespace InvestigationsProject.Classes
         }
 
 
-        public void AttachedSensor(Sensor sensor)
+        public void AttachSensor(Sensor sensor)
         {
             attachedSensors.Add(sensor);
         }
 
 
-        public int LenSecretWeaknesses()
+
+        public void CheckQuantityLife()
+        {
+            for (int i = attachedSensors.Count - 1; i >= 0; i--)
+            {
+                attachedSensors[i].DownLifeQuantity();
+
+                if (attachedSensors[i].GetQuantityLife() == 0)
+                {
+                    Console.WriteLine($"The sensor {attachedSensors[i].Name} is broken");
+                    attachedSensors.RemoveAt(i);
+                }
+            }
+        }
+
+
+
+        public int GetLenSecretWeaknesses()
         {
             return secretWeaknesses.Count;
         }
 
-        public int LenAttachedSensors()
+        public int GetLenAttachedSensors()
         {
             return attachedSensors.Count;
         }
 
-        public int TimesWhenWeaknessExists(string weakness)
+        public int GetTimesWeaknessExists(string weakness)
         {
             int counter = 0;
             foreach (String wkns in secretWeaknesses)
@@ -53,7 +70,7 @@ namespace InvestigationsProject.Classes
         }
 
 
-        public int TimesWhenWeaknessAttached(string weakness)
+        public int GetTimesWeaknessAttached(string weakness)
         {
             int counter = 0;
             foreach (Sensor sensor in attachedSensors)
