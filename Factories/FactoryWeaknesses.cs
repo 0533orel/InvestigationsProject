@@ -23,6 +23,19 @@ namespace InvestigationsProject.Factories
         }
 
 
-        
+        public static List<string> SquadLeaderWeaknesses()
+        {
+            List<string> agentWeaknesses = new List<string>
+                    {
+                        sensors[rand.Next(sensors.Count)],
+                        sensors[rand.Next(sensors.Count)],
+                        sensors[rand.Next(sensors.Count)],
+                        sensors[rand.Next(sensors.Count)]
+                    };
+            return agentWeaknesses;
+        }
+
+
+
     }
 }

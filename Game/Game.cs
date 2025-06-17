@@ -1,5 +1,6 @@
 ﻿using InvestigationsProject.Classes;
 using InvestigationsProject.Factories;
+using InvestigationsProject.IranianAgents;
 using InvestigationsProject.Sensors;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace InvestigationsProject.Game
     {
         public static void Game()
         {
-            IranianAgent iranianAgent = FactoryAgents.JuniorAgent();
+            Junior iranianAgent = FactoryAgents.JuniorAgent();
             List<string> sensors = FactoryWeaknesses.sensors;
 
             Console.WriteLine("Welcome to the investigation game!\n" +
@@ -29,7 +30,7 @@ namespace InvestigationsProject.Game
                 if (canAttach)
                     iranianAgent.AttachSensor(sensor);
                 else if (iranianAgent.GetLenAttachedSensors() > 0)
-                    iranianAgent.CheckQuantityLife();
+                    iranianAgent.DownQuantityLifeSensor();
 
                 Console.WriteLine($"\nAnswered: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()}\n");
 

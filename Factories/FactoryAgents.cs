@@ -1,4 +1,5 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.IranianAgents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,9 +73,16 @@ namespace InvestigationsProject.Factories
 
 
 
-        public static IranianAgent JuniorAgent()
+        public static Junior JuniorAgent()
         {
-            IranianAgent agent = new IranianAgent(RandomName(), "Junior", FactoryWeaknesses.JuniorWeaknesses());
+            Junior agent = new Junior(RandomName(), "Junior", FactoryWeaknesses.JuniorWeaknesses());
+            return agent;
+        }
+
+
+        public static SquadLeader SquadLeaderAgent()
+        {
+            SquadLeader agent = new SquadLeader(RandomName(), "Squad Leader", FactoryWeaknesses.SquadLeaderWeaknesses());
             return agent;
         }
     }
