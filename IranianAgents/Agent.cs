@@ -5,17 +5,19 @@ using System.Linq;
 
 namespace InvestigationsProject.Classes
 {
-    public class IranianAgent
+    public class Agent
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Rank { get; set; }
+        public int Id { get; private set; }
 
-        private List<string> secretWeaknesses;
+        public string Name { get; private set; }
 
-        private List<Sensor> attachedSensors;
+        public string Rank { get; private set; }
 
-        public IranianAgent(string name, string rank, List<string> weaknesses)
+        protected List<string> secretWeaknesses;
+
+        protected List<Sensor> attachedSensors;
+
+        public Agent(string name, string rank, List<string> weaknesses)
         {
             Name = name;
             Rank = rank;
@@ -23,15 +25,12 @@ namespace InvestigationsProject.Classes
             attachedSensors = new List<Sensor>();
         }
 
-
         public void AttachSensor(Sensor sensor)
         {
             attachedSensors.Add(sensor);
         }
 
-
-
-        public void CheckQuantityLife()
+        public void DownQuantityLifeSensor()
         {
             for (int i = attachedSensors.Count - 1; i >= 0; i--)
             {
@@ -39,13 +38,11 @@ namespace InvestigationsProject.Classes
 
                 if (attachedSensors[i].GetQuantityLife() == 0)
                 {
-                    Console.WriteLine($"The sensor {attachedSensors[i].Name} is broken");
+                    Console.WriteLine($"\nThe sensor {attachedSensors[i].Name} is broken");
                     attachedSensors.RemoveAt(i);
                 }
             }
         }
-
-
 
         public int GetLenSecretWeaknesses()
         {
@@ -67,7 +64,6 @@ namespace InvestigationsProject.Classes
             }
             return counter;
         }
-
 
         public int GetTimesWeaknessAttached(string weakness)
         {

@@ -15,7 +15,7 @@ namespace InvestigationsProject.Sensors
         }
 
 
-        public override bool Activate(IranianAgent agent)
+        public override bool Activate(Agent agent)
         {
             int timesExists = agent.GetTimesWeaknessExists(Name);
             int timesAttached = agent.GetTimesWeaknessAttached(Name);

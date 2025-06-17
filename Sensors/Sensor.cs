@@ -18,7 +18,7 @@ namespace InvestigationsProject.Classes
         }
 
 
-        public abstract bool Activate(IranianAgent agent);
+        public abstract bool Activate(Agent agent);
 
 
         public abstract int GetQuantityLife();
