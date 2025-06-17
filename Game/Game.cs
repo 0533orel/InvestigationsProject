@@ -1,6 +1,7 @@
 ﻿using InvestigationsProject.Classes;
 using InvestigationsProject.Factories;
 using InvestigationsProject.IranianAgents;
+using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
 using System;
 using System.Collections.Generic;
@@ -17,17 +18,20 @@ namespace InvestigationsProject.Game
             Junior iranianAgent = FactoryAgents.JuniorAgent();
             List<string> sensors = FactoryWeaknesses.sensors;
 
-            Console.WriteLine("Welcome to the investigation game!\n" +
-                "We have captured an Iranian agent and we want to expose him. For this we need to attach 'several' sensors to him according to his weaknesses.\n");
+            Console.WriteLine("Welcome to the investigation game!");
+            Player player = Helper.GetPlayer();
+            Console.WriteLine($"\nWelcome {player.FullName}!\n" +
+                                 "\nWe have captured an Iranian agent and we want to expose him. For this we need to attach 'several' sensors to him according to his weaknesses.\n");
 
             while (true)
             {
+
                 string userSelection = Helper.GetUserSelection(sensors);
                 Sensor sensor = Helper.CreateSensor(userSelection);
 
-                bool canAttach = sensor.Activate(iranianAgent);
+                bool ActiveSensor = sensor.Activate(iranianAgent);
 
-                if (canAttach)
+                if (ActiveSensor)
                     iranianAgent.AttachSensor(sensor);
                 else if (iranianAgent.GetLenAttachedSensors() > 0)
                     iranianAgent.DownQuantityLifeSensor();
@@ -36,7 +40,8 @@ namespace InvestigationsProject.Game
 
                 if (iranianAgent.GetLenAttachedSensors() == iranianAgent.GetLenSecretWeaknesses())
                 {
-                    Console.WriteLine("\nDone\n");
+                    Console.WriteLine($"\nDone\n" +
+                        $"You exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}");
                     break;
                 }
             }

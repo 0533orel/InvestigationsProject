@@ -9,7 +9,7 @@ namespace InvestigationsProject.IranianAgents
 {
     public class SquadLeader : Agent
     {
-        int AgentTurn = 3;
+        int CounterAttack = 3;
 
         public SquadLeader(string name, List<string> weaknesses) : base(name, weaknesses) 
         {
@@ -19,15 +19,15 @@ namespace InvestigationsProject.IranianAgents
 
         public void StrikeBack()
         {
-            AgentTurn--;
-            if (AgentTurn == 0)
+            CounterAttack--;
+            if (CounterAttack == 0)
             {
                 if (attachedSensors.Count > 0)
                 {
                     Console.WriteLine($"\nThe agent broke one of the sensors");
                     attachedSensors.RemoveAt(attachedSensors.Count - 1);
                 }
-                AgentTurn = 3;
+                CounterAttack = 3;
             }
 
         }

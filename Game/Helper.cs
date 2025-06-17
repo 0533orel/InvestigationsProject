@@ -1,4 +1,6 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.DAL;
+using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
 using System;
 using System.Collections.Generic;
@@ -41,6 +43,42 @@ namespace InvestigationsProject.Game
 
             return sensors.FirstOrDefault(sensor => sensor.Name == userSelection);
         }
-    }
 
+        public static Player GetPlayer()
+        {
+            Player player;
+            while (true)
+            {
+                Console.Write("\nPlease enter a username: ");
+                string userName = Console.ReadLine().ToLower().Trim();
+                if (!String.IsNullOrEmpty(userName))
+                {
+                    player = DALPlayers.GetPlayerByUserName(userName);
+                    if (player == null)
+                    {
+                        Console.WriteLine("\nYou are not registered in the system. You must register first.");
+                        string fullName = GetFullName();
+                        DALPlayers.Add(userName, fullName);
+                        player = DALPlayers.GetPlayerByUserName(userName);
+                    }
+                    break;
+                }
+            }
+            return player;
+        }
+
+
+        public static string GetFullName()
+        {
+            string fullName;
+            while (true)
+            {
+                Console.Write("\nPlease enter your full name: ");
+                fullName = Console.ReadLine()!.ToLower().Trim();
+                if (!String.IsNullOrEmpty(fullName))
+                    break;
+            }
+            return fullName;
+        }
+    }
 }
