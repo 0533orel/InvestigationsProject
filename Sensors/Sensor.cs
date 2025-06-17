@@ -18,14 +18,27 @@ namespace InvestigationsProject.Classes
         }
 
 
-        public abstract bool Activate(Agent agent);
+        public bool Activate(Agent agent)
+        {
+            int timesExists = agent.GetTimesWeaknessExists(Name);
+            int timesAttached = agent.GetTimesWeaknessAttached(Name);
+
+            if (timesExists != 0 && timesAttached < timesExists)
+                return true;
+            else
+                return false;
+        }
 
 
-        public abstract int GetQuantityLife();
+        public int GetQuantityLife()
+        {
+            return quantityLife;
+        }
 
 
-        public abstract void DownLifeQuantity();
+        public void DownLifeQuantity()
+        {
+            quantityLife--;
+        }
     }
-
-
 }

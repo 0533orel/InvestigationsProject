@@ -22,7 +22,6 @@ namespace InvestigationsProject.Factories
             return agentWeaknesses;
         }
 
-
         public static List<string> SquadLeaderWeaknesses()
         {
             List<string> agentWeaknesses = new List<string>
@@ -34,8 +33,5 @@ namespace InvestigationsProject.Factories
                     };
             return agentWeaknesses;
         }
-
-
-
     }
 }
