@@ -7,18 +7,17 @@ namespace InvestigationsProject.Classes
 {
     public class IranianAgent
     {
-        // for sql later
         public int Id { get; set; }
         public string Name { get; set; }
         public string Rank { get; set; }
-        //
 
         private List<string> secretWeaknesses;
 
         private List<Sensor> attachedSensors;
 
-        public IranianAgent(string rank, List<string> weaknesses)
+        public IranianAgent(string name, string rank, List<string> weaknesses)
         {
+            Name = name;
             Rank = rank;
             secretWeaknesses = weaknesses;
             attachedSensors = new List<Sensor>();
