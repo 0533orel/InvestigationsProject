@@ -21,7 +21,7 @@ namespace InvestigationsProject.Factories
             "Senior" 
         };
 
-        static String RandomName()
+        static string RandomName()
         {
             List<string> firstNames = new List<string>
                 {
