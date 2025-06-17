@@ -5,22 +5,21 @@ using System.Linq;
 
 namespace InvestigationsProject.Classes
 {
-    public class Agent
+    public abstract class Agent
     {
         public int Id { get; private set; }
 
         public string Name { get; private set; }
 
-        public string Rank { get; private set; }
+        public string Rank { get; protected set; }
 
         protected List<string> secretWeaknesses;
 
         protected List<Sensor> attachedSensors;
 
-        public Agent(string name, string rank, List<string> weaknesses)
+        public Agent(string name, List<string> weaknesses)
         {
             Name = name;
-            Rank = rank;
             secretWeaknesses = weaknesses;
             attachedSensors = new List<Sensor>();
         }

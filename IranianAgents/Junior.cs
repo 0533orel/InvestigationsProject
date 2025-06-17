@@ -9,6 +9,9 @@ namespace InvestigationsProject.IranianAgents
 {
     public class Junior : Agent
     {
-        public Junior(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
+        public Junior(string name, List<string> weaknesses) : base(name, weaknesses)
+        {
+            Rank = "Junior";
+        }
     }
 }

@@ -13,29 +13,5 @@ namespace InvestigationsProject.Sensors
         {
             quantityLife = 100;
         }
-
-
-        public override bool Activate(Agent agent)
-        {
-            int timesExists = agent.GetTimesWeaknessExists(Name);
-            int timesAttached = agent.GetTimesWeaknessAttached(Name);
-
-            if (timesExists != 0 && timesAttached < timesExists)
-                return true;
-            else
-                return false;
-        }
-
-
-        public override int GetQuantityLife()
-        {
-            return quantityLife;
-        }
-
-
-        public override void DownLifeQuantity()
-        {
-            quantityLife--;
-        }
     }
 }

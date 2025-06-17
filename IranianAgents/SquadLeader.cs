@@ -11,7 +11,10 @@ namespace InvestigationsProject.IranianAgents
     {
         int AgentTurn = 3;
 
-        public SquadLeader(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
+        public SquadLeader(string name, List<string> weaknesses) : base(name, weaknesses) 
+        {
+            Rank = "Squad Leader";
+        }
 
 
         public void StrikeBack()

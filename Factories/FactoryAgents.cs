@@ -21,8 +21,6 @@ namespace InvestigationsProject.Factories
             "Senior" 
         };
 
-       
-
         static String RandomName()
         {
             List<string> firstNames = new List<string>
@@ -69,20 +67,16 @@ namespace InvestigationsProject.Factories
             string fullName = firstNames[rand.Next(firstNames.Count)] + " " + lastNames[rand.Next(lastNames.Count)];
             return fullName;
         } 
-        
-
-
 
         public static Junior JuniorAgent()
         {
-            Junior agent = new Junior(RandomName(), "Junior", FactoryWeaknesses.JuniorWeaknesses());
+            Junior agent = new Junior(RandomName(), FactoryWeaknesses.JuniorWeaknesses());
             return agent;
         }
 
-
         public static SquadLeader SquadLeaderAgent()
         {
-            SquadLeader agent = new SquadLeader(RandomName(), "Squad Leader", FactoryWeaknesses.SquadLeaderWeaknesses());
+            SquadLeader agent = new SquadLeader(RandomName(), FactoryWeaknesses.SquadLeaderWeaknesses());
             return agent;
         }
     }
