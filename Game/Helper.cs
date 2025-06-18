@@ -35,6 +35,18 @@ namespace InvestigationsProject.Game
             return levels[rank];
         }
 
+        public static string GetNewRank(int level)
+        {
+            Dictionary<int, string> ranks = new Dictionary<int, string>
+            {
+                {1, "Foot Soldier" },
+                {2, "Squad Leader" },
+                {3, "Senior Commander" },
+                {4, "Organization Leader" }
+            };
+            return ranks[level];
+        }
+
 
         public static string GetUserSelection()
         {

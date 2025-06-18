@@ -1,4 +1,5 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.DAL;
 using InvestigationsProject.Factories;
 using InvestigationsProject.IranianAgents;
 using InvestigationsProject.IranianAgents.Interfaces;
@@ -30,11 +31,11 @@ namespace InvestigationsProject.Game
 
             while (true)
             {
-                Agent iranianAgent = FactoryAgents.CreateAgent(level);
+                Agent iranianAgent = FactoryAgents.CreateAgent(player.RankExposed);
 
                 Console.WriteLine($"\nLevel {level}!");
                 //for test
-                Console.WriteLine(String.Join(" ", iranianAgent.secretWeaknesses));
+                Console.WriteLine(String.Join(" | ", iranianAgent.secretWeaknesses));
 
                 while (true)
                 {
@@ -44,9 +45,18 @@ namespace InvestigationsProject.Game
                     bool ActiveSensor = sensor.Activate(iranianAgent);
 
                     if (ActiveSensor)
+                    {
                         iranianAgent.AttachSensor(sensor);
-                    else if (iranianAgent.GetLenAttachedSensors() > 0)
-                        iranianAgent.DownQuantityLifeSensor();
+                        DALPlayers.UpdateSuccessfulAttempts(player.UserName);
+                    }
+                    else 
+                    {
+                        DALPlayers.UpdateFailedAttempts(player.UserName);
+                        if (iranianAgent.GetLenAttachedSensors() > 0)
+                            iranianAgent.DownQuantityLifeSensor();
+                    }
+
+                    DALPlayers.UpdateTotalAttempts(player.UserName);
 
                     if (iranianAgent is IStrikeBackable agent)
                     {
@@ -60,6 +70,9 @@ namespace InvestigationsProject.Game
                         Console.WriteLine($"\nDone\n" +
                             $"You exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}");
                         level++;
+                        string newRank = Helper.GetNewRank(level);
+                        DALPlayers.UpdateRankExposed(player.UserName, newRank);
+                        player = DALPlayers.GetPlayerByUserName(player.UserName);
                         break;
                     }
                 }
