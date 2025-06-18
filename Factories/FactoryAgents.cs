@@ -55,7 +55,7 @@ namespace InvestigationsProject.Factories
             return fullName;
         }
 
-        static List<string> GetRandomWeaknesses(int count)
+        public static List<string> GetRandomWeaknesses(int count)
         {
             List<string> sensors = Helper.GetSensorsList();
             List<string> randomSensors = new List<string>();
@@ -76,9 +76,9 @@ namespace InvestigationsProject.Factories
                 case "Squad Leader":
                     return new SquadLeader(name, rank, GetRandomWeaknesses(4));
                 case "Senior Commander":
-                    return new SeniorCommander(name, rank, GetRandomWeaknesses(6)); ;
+                    return new SeniorCommander(name, rank, GetRandomWeaknesses(6));
                 case "Organization Leader":
-                    return null;
+                    return new OrganizationLeader(name, rank, GetRandomWeaknesses(8));
                 default:
                     return null;
             }
