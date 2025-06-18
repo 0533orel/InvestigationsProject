@@ -70,5 +70,88 @@ namespace InvestigationsProject.DAL
                 SqlConnection.CloseConnection(conn);
             }
         }
+
+
+        public static void UpdateRankExposed(string userName, string newRank)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string Query = @"UPDATE players SET rank_exposed = @newRank WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@newRank", newRank);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] UpdateSecretCode: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+        public static void UpdateSuccessfulAttempts(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string Query = @"UPDATE players SET successful_attempts = successful_attempts + 1 WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] UpdateSecretCode: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+        public static void UpdateFailedAttempts(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string Query = @"UPDATE players SET failed_attempts = failed_attempts + 1 WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] UpdateSecretCode: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+        public static void UpdateTotalAttempts(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string Query = @"UPDATE players SET total_attempts = total_attempts + 1 WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] UpdateSecretCode: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
     }
 }

@@ -71,18 +71,18 @@ namespace InvestigationsProject.Factories
             return randomSensors;
         }
 
-        public static Agent CreateAgent(int level)
+        public static Agent CreateAgent(string rank)
         {
             string name = GetRandomName();
-            switch (level)
+            switch (rank)
             {
-                case 1:
-                    return new Agent(name, "Foot Soldier", GetRandomWeaknesses(2));
-                case 2:
-                    return new SquadLeader(name, "Squad Leader", GetRandomWeaknesses(4));
-                case 3:
+                case "Foot Soldier":
+                    return new Agent(name, rank, GetRandomWeaknesses(2));
+                case "Squad Leader":
+                    return new SquadLeader(name, rank, GetRandomWeaknesses(4));
+                case "Senior Commander":
                     return null;
-                case 4:
+                case "Organization Leader":
                     return null;
                 default:
                     return null;
