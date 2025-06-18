@@ -1,11 +1,6 @@
 ﻿using InvestigationsProject.Classes;
 using InvestigationsProject.Game;
 using InvestigationsProject.IranianAgents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InvestigationsProject.Factories
 {
@@ -81,7 +76,7 @@ namespace InvestigationsProject.Factories
                 case "Squad Leader":
                     return new SquadLeader(name, rank, GetRandomWeaknesses(4));
                 case "Senior Commander":
-                    return null;
+                    return new SeniorCommander(name, rank, GetRandomWeaknesses(6)); ;
                 case "Organization Leader":
                     return null;
                 default:
