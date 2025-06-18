@@ -1,15 +1,14 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.Game;
 using InvestigationsProject.IranianAgents.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace InvestigationsProject.IranianAgents
 {
     public class SquadLeader : Agent , IStrikeBackable
     {
+        
         int CounterAttack = 3;
 
         public SquadLeader(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
@@ -21,8 +20,9 @@ namespace InvestigationsProject.IranianAgents
             {
                 if (attachedSensors.Count > 0)
                 {
-                    Console.WriteLine($"\nThe agent broke one of the sensors");
-                    attachedSensors.RemoveAt(attachedSensors.Count - 1);
+                    Random random = new Random();
+                    attachedSensors.RemoveAt(random.Next(attachedSensors.Count));
+                    Helper.PrintSlow($"\nThe agent broke one of the sensors", 5);
                 }
                 CounterAttack = 3;
             }

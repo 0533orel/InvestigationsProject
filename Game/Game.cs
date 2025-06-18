@@ -30,8 +30,9 @@ namespace InvestigationsProject.Game
                 switch (menuChoice)
                 {
                     case "1":
-                        player = StartGame(player);
-                        if (player.Level > 2)
+                        if (player.Level < 4)
+                            player = StartGame(player);
+                        if (player.Level > 3)
                             PrintSlow("\nCongratulations! You've completed the investigation.");
                         break;
 

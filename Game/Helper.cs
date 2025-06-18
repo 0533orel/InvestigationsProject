@@ -2,10 +2,6 @@
 using InvestigationsProject.DAL;
 using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace InvestigationsProject.Game
 {
@@ -36,7 +32,7 @@ namespace InvestigationsProject.Game
 
         public static Player PrintToPlayer(Player player)
         {
-            if (player.SuccessfulAttempts > 0)
+            if (player.TotalAttempts > 0)
             {
                 PrintSlow($"\nWelcome back {player.FullName}!");
                 player = CheckPlayerStart(player);
@@ -169,7 +165,6 @@ namespace InvestigationsProject.Game
             }
 
             DALPlayers.UpdateTotalAttempts(player.UserName);
-            Thread.Sleep(1000);
         }
 
         public static void FinishLevel(Player player, Agent iranianAgent)

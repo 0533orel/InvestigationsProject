@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using InvestigationsProject.Sensors;
+﻿using InvestigationsProject.Sensors;
 using static InvestigationsProject.Game.Helper;
 
 namespace InvestigationsProject.Classes
@@ -40,7 +36,7 @@ namespace InvestigationsProject.Classes
 
                 if (attachedSensors[i].GetQuantityLife() == 0)
                 {
-                    PrintSlow($"\nThe sensor {attachedSensors[i].Name} is broken");
+                    PrintSlow($"\nThe sensor {attachedSensors[i].Name} is broken", 5);
                     attachedSensors.RemoveAt(i);
                 }
             }
