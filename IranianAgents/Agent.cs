@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using InvestigationsProject.Sensors;
 
 namespace InvestigationsProject.Classes
 {
-    public abstract class Agent
+    public class Agent
     {
         public int Id { get; private set; }
 
         public string Name { get; private set; }
 
-        public string Rank { get; protected set; }
-
-        protected List<string> secretWeaknesses;
+        public string Rank { get; private set; }
+        //public for test
+        public List<string> secretWeaknesses;
 
         protected List<Sensor> attachedSensors;
 
-        public Agent(string name, List<string> weaknesses)
+        public Agent(string name, string rank, List<string> weaknesses)
         {
             Name = name;
+            Rank = rank;
             secretWeaknesses = weaknesses;
             attachedSensors = new List<Sensor>();
         }

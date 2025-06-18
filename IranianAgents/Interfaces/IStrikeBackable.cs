@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvestigationsProject.Game
+namespace InvestigationsProject.IranianAgents.Interfaces
 {
-    public static class Level1
+    public interface IStrikeBackable
     {
-        public static void Init()
-        {
-
-        }
+        void StrikeBack();
     }
 }

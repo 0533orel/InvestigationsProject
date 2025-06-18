@@ -1,5 +1,4 @@
-﻿using InvestigationsProject.Classes;
-using InvestigationsProject.DAL;
+﻿using InvestigationsProject.DAL;
 using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
 using System;
@@ -12,8 +11,34 @@ namespace InvestigationsProject.Game
 {
     public static class Helper
     {
-        public static string GetUserSelection(List<string> sensors)
+        public static List<string> GetSensorsList()
         {
+            List<string> sensors = new List<string> 
+            {
+                "mobile",
+                "movement",
+                "thermal", 
+                "pulse" 
+            };
+            return sensors;
+        }
+
+        public static int GetLevel(string rank)
+        {
+            Dictionary<string, int> levels = new Dictionary<string, int>
+            {
+                {"Foot Soldier", 1 },
+                {"Squad Leader", 2 },
+                {"Senior Commander", 3 },
+                {"Organization Leader", 4 }
+            };
+            return levels[rank];
+        }
+
+
+        public static string GetUserSelection()
+        {
+            List<string> sensors = GetSensorsList();
             string userSelection;
             while (true)
             {
@@ -80,5 +105,7 @@ namespace InvestigationsProject.Game
             }
             return fullName;
         }
+
+
     }
 }
