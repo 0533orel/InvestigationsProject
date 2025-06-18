@@ -4,7 +4,6 @@ using InvestigationsProject.Factories;
 using InvestigationsProject.IranianAgents.Interfaces;
 using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
-using static InvestigationsProject.Game.Helper;
 
 namespace InvestigationsProject.Game
 {
@@ -12,40 +11,40 @@ namespace InvestigationsProject.Game
     {
         public static void GameMenu()
         {
-            PrintSlow("=== Welcome to the Investigation Game ===\n");
+            Helper.PrintSlow("=== Welcome to the Investigation Game ===\n");
 
-            Player player = GetPlayer();
-            player = PrintToPlayer(player);
+            Player player = Helper.GetPlayer();
+            player = Helper.PrintToPlayer(player);
 
             while (true)
             {
-                PrintSlow("\nMain Menu:");
-                PrintSlow("1. Start");
-                PrintSlow("2. Show Player Info");
-                PrintSlow("3. Exit Game");
-                PrintSlow("\nSelect an option (1-3): ", 20);
+                Helper.PrintSlow("\nMain Menu:", 5);
+                Helper.PrintSlow("1. Start", 5);
+                Helper.PrintSlow("2. Show Player Info", 5);
+                Helper.PrintSlow("3. Exit Game", 5);
+                Helper.PrintSlow("\nSelect an option (1-3): ", 5);
 
                 string menuChoice = Console.ReadLine()?.Trim();
 
                 switch (menuChoice)
                 {
                     case "1":
-                        if (player.Level < 4)
+                        if (player.Level < 5)
                             player = StartGame(player);
-                        if (player.Level > 3)
-                            PrintSlow("\nCongratulations! You've completed the investigation.");
+                        if (player.Level == 5)
+                            Helper.PrintSlow("\nCongratulations! You've completed the investigation.", 5);
                         break;
 
                     case "2":
-                        PrintSlow($"\n--- Player Info ---\nUsername: {player.UserName}\nLevel: {player.Level}\nRevealed Rank: {player.RankExposed}\nAttempts: {player.TotalAttempts}\n");
+                        Helper.PrintSlow($"\n--- Player Info ---\nUsername: {player.UserName}\nLevel: {player.Level}\nRevealed Rank: {player.RankExposed}\nAttempts: {player.TotalAttempts}\n", 5);
                         break;
 
                     case "3":
-                        PrintSlow("\nThank you for playing. Goodbye!");
+                        Helper.PrintSlow("\nThank you for playing. Goodbye!", 5);
                         return;
 
                     default:
-                        PrintSlow("\nInvalid selection. Please choose 1, 2, or 3.");
+                        Helper.PrintSlow("\nInvalid selection. Please choose 1, 2, or 3.", 5);
                         break;
                 }
             }
@@ -54,26 +53,26 @@ namespace InvestigationsProject.Game
         private static Player StartGame(Player player)
         {
             Agent iranianAgent = FactoryAgents.CreateAgent(player.RankExposed);
-            PrintSlow($"\n=== Starting Level {player.Level} ===");
+            Helper.PrintSlow($"\n=== Starting Level {player.Level} ===", 5);
 
             while (true)
             {
                 // Debug: show weaknesses
                 Console.WriteLine(String.Join(" | ", iranianAgent.secretWeaknesses));
 
-                string userSelection = GetUserSelection();
-                Sensor sensor = CreateSensor(userSelection);
+                string userSelection = Helper.GetUserSelection();
+                Sensor sensor = Helper.CreateSensor(userSelection);
 
-                ActiveSensor(player, sensor, iranianAgent);
+                Helper.ActiveSensor(player, sensor, iranianAgent);
 
                 if (iranianAgent is IStrikeBackable agent)
                     agent.StrikeBack();
 
-                PrintSlow($"\nProgress: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()} sensors attached\n");
+                Helper.PrintSlow($"\nProgress: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()} sensors attached\n", 5);
 
                 if (iranianAgent.GetLenAttachedSensors() == iranianAgent.GetLenSecretWeaknesses())
                 {
-                    FinishLevel(player, iranianAgent);
+                    Helper.FinishLevel(player, iranianAgent);
                     break;
                 }
             }

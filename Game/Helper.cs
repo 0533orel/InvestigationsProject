@@ -34,13 +34,13 @@ namespace InvestigationsProject.Game
         {
             if (player.TotalAttempts > 0)
             {
-                PrintSlow($"\nWelcome back {player.FullName}!");
+                PrintSlow($"\nWelcome back {player.FullName}!", 5);
                 player = CheckPlayerStart(player);
             }
             else
-                PrintSlow($"\nWelcome {player.FullName}!");
+                PrintSlow($"\nWelcome {player.FullName}!", 5);
 
-            PrintSlow("\nAn Iranian agent has been captured. Your mission: identify and attach the correct sensors to reveal his vulnerabilities and uncover his true intentions.", 10);
+            PrintSlow("\nAn Iranian agent has been captured. Your mission: identify and attach the correct sensors to reveal his vulnerabilities and uncover his true intentions.", 5);
             return player;
         }
 
@@ -48,7 +48,7 @@ namespace InvestigationsProject.Game
         {
             while (true)
             {
-                PrintSlow("\nWould you like to:\n1. Continue from your last saved level\n2. Start a new game\nChoose (1 or 2): ", 10);
+                PrintSlow("\nWould you like to:\n1. Continue from your last saved level\n2. Start a new game\nChoose (1 or 2): ", 5);
                 string choice = Console.ReadLine()?.Trim();
 
                 if (choice == "1")
@@ -59,12 +59,12 @@ namespace InvestigationsProject.Game
                 {
                     DALPlayers.ResetPlayerProgress(player.UserName);
                     player = DALPlayers.GetPlayerByUserName(player.UserName);
-                    PrintSlow("\nYour progress has been reset.");
+                    PrintSlow("\nYour progress has been reset.", 5);
                     break;
                 }
                 else
                 {
-                    PrintSlow("Invalid selection. Please choose 1 or 2.");
+                    PrintSlow("Invalid selection. Please choose 1 or 2.", 5);
                 }
             }
             return player;
@@ -84,7 +84,7 @@ namespace InvestigationsProject.Game
                 if (sensors.Contains(userSelection))
                     break;
 
-                PrintSlow("Invalid value. Please choose a valid sensor.");
+                PrintSlow("Invalid value. Please choose a valid sensor.", 5);
             }
 
             return userSelection;
@@ -108,14 +108,14 @@ namespace InvestigationsProject.Game
             Player player;
             while (true)
             {
-                PrintSlow("Please enter a username: ", 10);
+                PrintSlow("Please enter a username: ", 5);
                 string userName = Console.ReadLine().ToLower().Trim();
                 if (!String.IsNullOrEmpty(userName))
                 {
                     player = DALPlayers.GetPlayerByUserName(userName);
                     if (player == null)
                     {
-                        PrintSlow("\nYou are not registered in the system. You must register first.");
+                        PrintSlow("\nYou are not registered in the system. You must register first.", 5);
                         string fullName = GetFullName();
                         DALPlayers.Add(userName, fullName);
                         player = DALPlayers.GetPlayerByUserName(userName);
@@ -131,7 +131,7 @@ namespace InvestigationsProject.Game
             string fullName;
             while (true)
             {
-                PrintSlow("\nPlease enter your full name: ", 10);
+                PrintSlow("\nPlease enter your full name: ", 5);
                 fullName = Console.ReadLine().ToLower().Trim();
                 if (!String.IsNullOrEmpty(fullName))
                     break;
@@ -141,7 +141,7 @@ namespace InvestigationsProject.Game
 
         public static void ActiveSensor(Player player, Sensor sensor, Agent iranianAgent)
         {
-            PrintSlow("...", 300);
+            PrintSlow("\n...", 300);
 
             bool activeSensor = sensor.Activate(iranianAgent);
             Thread.Sleep(300);
@@ -151,7 +151,7 @@ namespace InvestigationsProject.Game
                 iranianAgent.AttachSensor(sensor);
                 PrintSlow($"\nRight!", 0);
                 DALPlayers.UpdateSuccessfulAttempts(player.UserName);
-                PrintSlow("\nThe sensor added successfully.", 10);
+                PrintSlow("\nThe sensor added successfully.", 5);
             }
             else
             {
@@ -169,7 +169,7 @@ namespace InvestigationsProject.Game
 
         public static void FinishLevel(Player player, Agent iranianAgent)
         {
-            PrintSlow($"\nSuccess!\nYou exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}");
+            PrintSlow($"Success!\nYou exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}", 5);
             DALPlayers.UpdateLevel(player.UserName);
             string newRank = GetNewRank(player.Level + 1);
             DALPlayers.UpdateRankExposed(player.UserName, newRank);
