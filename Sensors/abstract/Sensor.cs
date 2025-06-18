@@ -1,10 +1,11 @@
-﻿using System;
+﻿using InvestigationsProject.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvestigationsProject.Classes
+namespace InvestigationsProject.Sensors
 {
     public abstract class Sensor
     {

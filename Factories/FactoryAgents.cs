@@ -1,4 +1,5 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.Game;
 using InvestigationsProject.IranianAgents;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,7 @@ namespace InvestigationsProject.Factories
     {
         static Random rand = new Random();
 
-        // later
-        static List<string> ranks = new List<string>
-        { 
-            "Junior",
-            "Squad Leader",
-            "Company commander",
-            "Senior" 
-        };
-
-        static string RandomName()
+        static string GetRandomName()
         {
             List<string> firstNames = new List<string>
                 {
@@ -66,18 +58,35 @@ namespace InvestigationsProject.Factories
                 };
             string fullName = firstNames[rand.Next(firstNames.Count)] + " " + lastNames[rand.Next(lastNames.Count)];
             return fullName;
-        } 
-
-        public static Junior JuniorAgent()
-        {
-            Junior agent = new Junior(RandomName(), FactoryWeaknesses.JuniorWeaknesses());
-            return agent;
         }
 
-        public static SquadLeader SquadLeaderAgent()
+        static List<string> GetRandomWeaknesses(int count)
         {
-            SquadLeader agent = new SquadLeader(RandomName(), FactoryWeaknesses.SquadLeaderWeaknesses());
-            return agent;
+            List<string> sensors = Helper.GetSensorsList();
+            List<string> randomSensors = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                randomSensors.Add(sensors[rand.Next(sensors.Count)]);
+            }
+            return randomSensors;
+        }
+
+        public static Agent CreateAgent(int level)
+        {
+            string name = GetRandomName();
+            switch (level)
+            {
+                case 1:
+                    return new Agent(name, "Foot Soldier", GetRandomWeaknesses(2));
+                case 2:
+                    return new SquadLeader(name, "Squad Leader", GetRandomWeaknesses(4));
+                case 3:
+                    return null;
+                case 4:
+                    return null;
+                default:
+                    return null;
+            }
         }
     }
 }

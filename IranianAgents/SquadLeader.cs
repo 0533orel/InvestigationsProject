@@ -1,4 +1,5 @@
 ﻿using InvestigationsProject.Classes;
+using InvestigationsProject.IranianAgents.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,11 @@ using System.Threading.Tasks;
 
 namespace InvestigationsProject.IranianAgents
 {
-    public class SquadLeader : Agent
+    public class SquadLeader : Agent , IStrikeBackable
     {
         int CounterAttack = 3;
 
-        public SquadLeader(string name, List<string> weaknesses) : base(name, weaknesses) 
-        {
-            Rank = "Squad Leader";
-        }
-
+        public SquadLeader(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
 
         public void StrikeBack()
         {
