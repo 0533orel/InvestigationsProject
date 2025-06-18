@@ -28,6 +28,7 @@ namespace InvestigationsProject.DAL
                         userName: reader.GetString("user_name"),
                         fullName: reader.GetString("full_name"),
                         rankExposed: reader.GetString("rank_exposed"),
+                        level: reader.GetInt32("level"),
                         successfulAttempts: reader.GetInt32("successful_attempts"),
                         failedAttempts: reader.GetInt32("failed_attempts"),
                         totalAttempts: reader.GetInt32("total_attempts"),
@@ -152,6 +153,70 @@ namespace InvestigationsProject.DAL
                 SqlConnection.CloseConnection(conn);
             }
         }
+
+        public static void UpdateLevel(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string Query = @"UPDATE players SET level = level + 1 WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] UpdateSecretCode: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+        public static void Delete(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string query = "DELETE FROM players WHERE user_name = @userName";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] Delete: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+
+        public static void ResetPlayerProgress(string userName)
+        {
+            try
+            {
+                conn = SqlConnection.OpenConnect();
+                string query = @"UPDATE players SET Level = 1, rank_exposed = 'Foot Soldier'
+                                 WHERE user_name = @UserName";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userName", userName);
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[ERROR] ResetPlayerProgress: {ex.Message}");
+            }
+            finally
+            {
+                SqlConnection.CloseConnection(conn);
+            }
+        }
+
+
 
     }
 }

@@ -1,86 +1,83 @@
 ﻿using InvestigationsProject.Classes;
 using InvestigationsProject.DAL;
 using InvestigationsProject.Factories;
-using InvestigationsProject.IranianAgents;
 using InvestigationsProject.IranianAgents.Interfaces;
 using InvestigationsProject.players;
 using InvestigationsProject.Sensors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using static InvestigationsProject.Game.Helper;
 
 namespace InvestigationsProject.Game
 {
     public static class GameControl
     {
-        public static void Game()
+        public static void GameMenu()
         {
-            Console.WriteLine("Welcome to the investigation game!");
-            Player player = Helper.GetPlayer();
+            PrintSlow("=== Welcome to the Investigation Game ===\n");
 
-            if (player.SuccessfulAttempts > 0)
-                Console.WriteLine($"\nWelcome back {player.FullName}!");
-            else
-                Console.WriteLine($"\nWelcome {player.FullName}!");
-            Console.WriteLine($"\nWe have captured an Iranian agent and we want to expose him. For this we need to attach 'several' sensors to him according to his weaknesses.");
-
-            int level = Helper.GetLevel(player.RankExposed);
+            Player player = GetPlayer();
+            player = PrintToPlayer(player);
 
             while (true)
             {
-                Agent iranianAgent = FactoryAgents.CreateAgent(player.RankExposed);
+                PrintSlow("\nMain Menu:");
+                PrintSlow("1. Start");
+                PrintSlow("2. Show Player Info");
+                PrintSlow("3. Exit Game");
+                PrintSlow("\nSelect an option (1-3): ", 20);
 
-                Console.WriteLine($"\nLevel {level}!");
-                //for test
-                Console.WriteLine(String.Join(" | ", iranianAgent.secretWeaknesses));
+                string menuChoice = Console.ReadLine()?.Trim();
 
-                while (true)
+                switch (menuChoice)
                 {
-                    string userSelection = Helper.GetUserSelection();
-                    Sensor sensor = Helper.CreateSensor(userSelection);
-
-                    bool ActiveSensor = sensor.Activate(iranianAgent);
-
-                    if (ActiveSensor)
-                    {
-                        iranianAgent.AttachSensor(sensor);
-                        DALPlayers.UpdateSuccessfulAttempts(player.UserName);
-                    }
-                    else 
-                    {
-                        DALPlayers.UpdateFailedAttempts(player.UserName);
-                        if (iranianAgent.GetLenAttachedSensors() > 0)
-                            iranianAgent.DownQuantityLifeSensor();
-                    }
-
-                    DALPlayers.UpdateTotalAttempts(player.UserName);
-
-                    if (iranianAgent is IStrikeBackable agent)
-                    {
-                        agent.StrikeBack();
-                    }
-
-                    Console.WriteLine($"\nAnswered: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()}\n");
-
-                    if (iranianAgent.GetLenAttachedSensors() == iranianAgent.GetLenSecretWeaknesses())
-                    {
-                        Console.WriteLine($"\nDone\n" +
-                            $"You exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}");
-                        level++;
-                        string newRank = Helper.GetNewRank(level);
-                        DALPlayers.UpdateRankExposed(player.UserName, newRank);
-                        player = DALPlayers.GetPlayerByUserName(player.UserName);
+                    case "1":
+                        player = StartGame(player);
+                        if (player.Level > 2)
+                            PrintSlow("\nCongratulations! You've completed the investigation.");
                         break;
-                    }
+
+                    case "2":
+                        PrintSlow($"\n--- Player Info ---\nUsername: {player.UserName}\nLevel: {player.Level}\nRevealed Rank: {player.RankExposed}\nAttempts: {player.TotalAttempts}\n");
+                        break;
+
+                    case "3":
+                        PrintSlow("\nThank you for playing. Goodbye!");
+                        return;
+
+                    default:
+                        PrintSlow("\nInvalid selection. Please choose 1, 2, or 3.");
+                        break;
                 }
-                if (level > 4)
-                    break;
             }
         }
+
+        private static Player StartGame(Player player)
+        {
+            Agent iranianAgent = FactoryAgents.CreateAgent(player.RankExposed);
+            PrintSlow($"\n=== Starting Level {player.Level} ===");
+
+            while (true)
+            {
+                // Debug: show weaknesses
+                Console.WriteLine(String.Join(" | ", iranianAgent.secretWeaknesses));
+
+                string userSelection = GetUserSelection();
+                Sensor sensor = CreateSensor(userSelection);
+
+                ActiveSensor(player, sensor, iranianAgent);
+
+                if (iranianAgent is IStrikeBackable agent)
+                    agent.StrikeBack();
+
+                PrintSlow($"\nProgress: {iranianAgent.GetLenAttachedSensors()}/{iranianAgent.GetLenSecretWeaknesses()} sensors attached\n");
+
+                if (iranianAgent.GetLenAttachedSensors() == iranianAgent.GetLenSecretWeaknesses())
+                {
+                    FinishLevel(player, iranianAgent);
+                    break;
+                }
+            }
+            player = DALPlayers.GetPlayerByUserName(player.UserName);
+            return player;
+        }
     }
-
 }
-

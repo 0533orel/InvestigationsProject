@@ -6,7 +6,7 @@ namespace InvestigationsProject
     {
         static void Main(string[] args)
         {
-            GameControl.Game();
+            GameControl.GameMenu();
         }
     }
 }
