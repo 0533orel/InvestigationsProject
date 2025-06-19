@@ -152,6 +152,12 @@ namespace InvestigationsProject.Game
                 PrintSlow($"\nRight!", 0);
                 DALPlayers.UpdateSuccessfulAttempts(player.UserName);
                 PrintSlow("\nThe sensor added successfully.", 5);
+                if (sensor is Thermal thermalSensor &&
+                    iranianAgent.GetLenAttachedSensors() < iranianAgent.GetLenSecretWeaknesses())
+                {
+                    thermalSensor.DiscoverOneWeakness(iranianAgent);
+                }
+
             }
             else
             {
