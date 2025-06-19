@@ -72,13 +72,13 @@ namespace InvestigationsProject.Factories
             switch (rank)
             {
                 case "Foot Soldier":
-                    return new Agent(name, rank, GetRandomWeaknesses(2));
+                    return new Agent(rank, GetRandomWeaknesses(2));
                 case "Squad Leader":
-                    return new SquadLeader(name, rank, GetRandomWeaknesses(4));
+                    return new SquadLeader(rank, GetRandomWeaknesses(4));
                 case "Senior Commander":
-                    return new SeniorCommander(name, rank, GetRandomWeaknesses(6));
+                    return new SeniorCommander(rank, GetRandomWeaknesses(6));
                 case "Organization Leader":
-                    return new OrganizationLeader(name, rank, GetRandomWeaknesses(8));
+                    return new OrganizationLeader(rank, GetRandomWeaknesses(8));
                 default:
                     return null;
             }

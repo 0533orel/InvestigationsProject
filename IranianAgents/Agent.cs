@@ -6,18 +6,33 @@ namespace InvestigationsProject.Classes
     public class Agent
     {
         public int Id { get; private set; }
-
-        public string Name { get; private set; }
-
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string Location { get; private set; }
+        public string FavoriteWeapon { get; private set; }
+        public string ContactNumber { get; private set; }
+        public string SecretPhrase { get; private set; }
+        public string Affiliation { get; private set; }
         public string Rank { get; private set; }
         //public for test
         public List<string> secretWeaknesses;
-
         protected List<Sensor> attachedSensors;
 
-        public Agent(string name, string rank, List<string> weaknesses)
+        public Agent(int id, string firstName, string lastName, string location, string favoriteWeapon, string contactNumber, string secretPhrase, string affiliation)
         {
-            Name = name;
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Location = location;
+            FavoriteWeapon = favoriteWeapon;
+            ContactNumber = contactNumber;
+            SecretPhrase = secretPhrase;
+            Affiliation = affiliation;
+
+        }
+
+        public Agent(string rank, List<string> weaknesses)
+        {
             Rank = rank;
             secretWeaknesses = weaknesses;
             attachedSensors = new List<Sensor>();
