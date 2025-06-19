@@ -8,7 +8,7 @@ namespace InvestigationsProject.IranianAgents
     {
         int CounterAttack = 3;
 
-        public SeniorCommander(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
+        public SeniorCommander(string rank, List<string> weaknesses) : base(rank, weaknesses) { }
 
         public void StrikeBack()
         {

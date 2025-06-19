@@ -169,10 +169,18 @@ namespace InvestigationsProject.Game
 
         public static void FinishLevel(Player player, Agent iranianAgent)
         {
-            PrintSlow($"Success!\nYou exposed the agent: {iranianAgent.Name} in rank: {iranianAgent.Rank}", 5);
             DALPlayers.UpdateLevel(player.UserName);
-            string newRank = GetNewRank(player.Level + 1);
+            string newRank = Helper.GetNewRank(player.Level + 1);
             DALPlayers.UpdateRankExposed(player.UserName, newRank);
+
+            Agent agent = DALAgents.GetRandomAgentByRank();
+            PrintSlow($"Success!\nYou exposed the agent:", 5);
+            PrintSlow($"Name: {agent.FirstName} {agent.LastName}", 5);
+            PrintSlow($"Rank: {iranianAgent.Rank}", 5);
+            PrintSlow($"Location: {agent.Location}");
+            PrintSlow($"Favorite Weapon: {agent.FavoriteWeapon}", 5);
+            PrintSlow($"Contact Number: {agent.ContactNumber}", 5);
+            PrintSlow($"Secret Phrase: {agent.SecretPhrase}", 5);
         }
 
         public static void PrintSlow(string text, int delay = 30)

@@ -13,7 +13,6 @@ namespace InvestigationsProject.DAL
         {
             try
             {
-                Player player = null;
                 conn = SqlConnection.OpenConnect();
                 string query = "SELECT * FROM players WHERE user_name = @userName";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -22,7 +21,7 @@ namespace InvestigationsProject.DAL
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    player = new Player(
+                    return new Player(
                         id: reader.GetInt32("id"),
                         userName: reader.GetString("user_name"),
                         fullName: reader.GetString("full_name"),
@@ -35,7 +34,7 @@ namespace InvestigationsProject.DAL
                     );
                 }
 
-                return player;
+                return null;
             }
             catch (MySqlException ex)
             {

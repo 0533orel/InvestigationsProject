@@ -9,7 +9,7 @@ namespace InvestigationsProject.IranianAgents
     {
         int CounterAttack = 0;
 
-        public OrganizationLeader(string name, string rank, List<string> weaknesses) : base(name, rank, weaknesses) { }
+        public OrganizationLeader(string rank, List<string> weaknesses) : base(rank, weaknesses) { }
 
         public void StrikeBack()
         {

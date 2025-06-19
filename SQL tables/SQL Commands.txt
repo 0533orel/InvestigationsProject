@@ -1,0 +1,11 @@
+CREATE TABLE Players (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(30) UNIQUE NOT NULL,
+    full_name VARCHAR(30) NOT NULL,
+    rank_exposed ENUM('Foot Soldier', 'Squad Leader', 'Senior Commander', 'Organization Leader') DEFAULT 'Foot Soldier',
+    level INT DEFAULT 1, 
+    successful_attempts INT DEFAULT 0,
+	failed_attempts INT DEFAULT 0,
+    total_attempts INT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP 
+);
