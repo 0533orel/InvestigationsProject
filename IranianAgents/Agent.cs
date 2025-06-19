@@ -88,6 +88,12 @@ namespace InvestigationsProject.Classes
             }
             return counter;
         }
+
+        public List<string> GetSecretWeaknesses()
+        {
+            return new List<string>(secretWeaknesses);
+        }
+
     }
 }
 
